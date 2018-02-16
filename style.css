@@ -1,17 +1,15 @@
 	body{
-			background-image: url('static.jpg');
+			background-image: url('media/static.jpg');
 
 		}
 		#logo{
 			width: 360px;
 			height: 329px;
 			position: relative;
-			left: 0;
+			left: 200;
 			
 		}
-		body div select option{
-			padding: 20px;
-		}
+		
 
 		.selStyle{
 			
@@ -22,27 +20,84 @@
 			border-width: 3px;
 			color: Gold;
 			background-color:  DimGray;
-			text-align: center;
+			position: relative;
+			
 
 
 		}
-		#container{
-			width: 500px;
+		select{
 			position: relative;
-			left: 800px;
+			left: 0;
+		}
+		#container{
+			width: 1000px;
+			position: relative;
 			
+			
+		}
+
+		#east{
+			position: absolute;
+			left: 74%;
+			width: 5%;
+			top: 28%;
+			color: yellow;
+
+		}
+
+		#west{
+			position: absolute;
+			color: yellow;
+			width: 5%;
+			left: 25%;
+			top: 28%;
+
+		}
+		#stockPic{
+			position: absolute;
+			left: 17%;
+			top:56%;
+		}
+
+		#team{
+			position: absolute;
+			left: 56%;
+			top: 56%;
+		}
+
+		#team2{
+			position:absolute;
+			left:17%;
+			top: 56%;
+		}
+
+		#east2{
+			position: absolute;
+			color: yellow;
+			left: 64%;
+			top:28%;
+			width: 10%;
+		}
+
+		#west2{
+			position: absolute;
+			color: yellow;
+			left:38%;
+			top: 28%;
+			width: 10%;
+		}
+		p{
+			margin: 0;
+			padding: 0;
+			font-family: 'VT323', monospace;
+			font-size: 20px;
 		}
 		#opt{
 			background-color: green;
 		}
 
 	
-		#west{
-
-		}
-		#east{
-
-		}
-		#compTeam{
-
+		#choose {
+			margin-left: 15%;
+			margin-top: 10%;
 		}
