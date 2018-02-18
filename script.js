@@ -23,25 +23,24 @@ data['westRookie'] =['none', 'Choose a game feature!', 'wrTurbo','Unlimmited tur
 data['westVeteran'] =['none', 'Choose a game feature!', 'wvTurbo','Unlimmited turbo', 'wvBigHead', 'Big-Head Mode', 'wvFire', '1 Shot Fire' ];
 data['westAllStar'] =['none', 'Choose a game feature!', 'waTurbo','Unlimmited turbo', 'waBigHead', 'Big-Head Mode', 'waFire', '1 Shot Fire' ];
 
+										
 
 
 
 
 
-
-
-
+var imgID;
+var result = "";
 var pick = '';
 var eastBool = false;
 
 
 function create(dom){
-	var teamArr = new Array('Atlanta','Charlotte','Chicago','Cleveland','Detroit','Indiana','Boston','Miami','New Jersey','New York','Orlando','Philadelphia','Washington','Golden State','L.A Clippers','L.A Lakers','Phoenix','Portland','Seattle','Sacramento','Dallas','Denver','Houston','Minnesota','San Antonio',
-	'Utah');
+	var teamArr = new Array('Atlanta','Charlotte','Chicago','Cleveland','Detroit','Indiana','Boston','Miami','New Jersey','New York','Orlando','Philadelphia','Washington','L.A Clippers','L.A Lakers','Phoenix','Portland','Golden State','Seattle','Sacramento','Dallas','Denver','Houston','Minnesota');
 
 	
 		moveIt = function moveIt(dom){
-				
+				console.log(parseInt(dom.style.left));
 				
 				if(parseInt(dom.style.left) < 600){
 					//my pos = my old pos + x
@@ -49,13 +48,44 @@ function create(dom){
 					dom.style.left = parseInt(dom.style.left) + 20 + 'px';
 					
 					//wraper function when you have arguments
-					setTimeout(function(){moveIt(this);}, 5);
+					setTimeout(function(){moveIt(dom);}, 5);
 				
 				}
 				
 			
 			
 			}
+	validate = function validate(){
+		var valBool = false;
+		var errorMsg = "Please complete the following fields: ";
+		var re = /\S+@\S+\.\S+/;
+			if(!document.getElementsByName('first-name').value){
+				errorMsg+= "First Name, ";
+				valBool = true;
+			}
+			if(!document.getElementsByName('last-name').value){
+				errorMsg+= "Last Name, ";
+				valBool = true;
+			}
+			if(!re.test(document.getElementsByName('email')[0].value)){
+				errorMsg += "email ";
+				valBool = true;
+			}
+
+			if(valBool){
+
+				var feedBack = document.createElement('div');
+				feedBack.setAttribute('id', 'feedBack');
+				feedBack.appendChild(document.createTextNode(errorMsg));
+				document.getElementById('results').appendChild(feedBack);
+				return false;
+			}
+
+			return true;
+
+
+
+	}
 	
 	pick = function pick(p) {
 		if(document.getElementById('team')){
@@ -66,7 +96,7 @@ function create(dom){
 
 		}
 		
-		var imgID = p.id;
+		 imgID = p.id;
 		console.log(p.id);
 		
 		var img = document.createElement('img');
@@ -82,6 +112,96 @@ function create(dom){
 		}
 		document.getElementById('container').appendChild(img);
 
+
+
+	}
+
+	goForm = function goForm(){
+		var len = document.getElementById('west').getElementsByTagName('p').length;
+		for(var i= 0; i <len;i++){
+			console.log('hey');
+			document.getElementById('west').getElementsByTagName('p')[i].onclick = "";
+			document.getElementById('east2').getElementsByTagName('p')[i].onclick = "";
+		}
+
+		var lenE = document.getElementById('east').getElementsByTagName('p').length;
+		console.log(lenE);
+		for(var i=0; i< lenE; i++){
+			
+			document.getElementById('east').getElementsByTagName('p')[i].onclick = "";
+		}
+
+		var lenW = document.getElementById('west2').getElementsByTagName('p').length;
+		for(var i=0; i< lenW; i++){
+			document.getElementById('west2').getElementsByTagName('p')[i].onclick = "";
+		}
+
+
+		var divForm = document.createElement('div');
+		divForm.setAttribute('id', 'formDiv');
+
+		var form = document.createElement('form');
+		form.setAttribute('action', 'index.html');
+		form.setAttribute('method', 'get');
+		form.setAttribute('onsubmit', 'return validate();');
+
+		result += "Team: " + imgID;
+		var resultDiv = document.createElement('div');
+		resultDiv.setAttribute('id', 'results');
+		var order = document.createElement('h1');
+		order.appendChild(document.createTextNode('Your Order Summary:'));
+		var orderP = document.createElement('p');
+		orderP.appendChild(document.createTextNode(result));
+		resultDiv.appendChild(order);
+		resultDiv.appendChild(orderP);
+		divForm.appendChild(resultDiv);
+
+		
+		
+		var p = document.createElement('p');
+		p.appendChild(document.createTextNode('First Name:'));
+		var input = document.createElement('input');
+		input.setAttribute('type', 'text');
+		input.setAttribute('name', 'first-name');
+		input.setAttribute('maxlength', 10);
+		form.appendChild(p);
+		form.appendChild(input);
+		
+
+		var textLast = document.createElement('p');
+		textLast.appendChild(document.createTextNode('Last Name:'));
+		var inputLast = document.createElement('input');
+		inputLast.setAttribute('type', 'text');
+		inputLast.setAttribute('name', 'first-name');
+		inputLast.setAttribute('maxlength', 10);
+		form.appendChild(textLast);
+		form.appendChild(inputLast);
+
+		var textEmail = document.createElement('p');
+		textEmail.appendChild(document.createTextNode('Email:'))
+		var email = document.createElement('input');
+		email.setAttribute('type', 'email');
+		email.setAttribute('name', 'email');
+		form.appendChild(textEmail);
+		form.appendChild(email);
+
+		var box = document.createElement('p');
+		box.appendChild(document.createTextNode('Email:'));
+		var textArea = document.createElement('textarea');
+		textArea.setAttribute('rows', '5');
+		textArea.setAttribute('cols', '30');
+		form.appendChild(box);
+		form.appendChild(textArea);
+
+		var submit = document.createElement('input');
+		submit.setAttribute('type', 'submit');
+		form.appendChild(submit);
+
+
+		divForm.appendChild(form);
+		
+
+		document.getElementById('container').appendChild(divForm);
 
 	}
 
@@ -105,6 +225,7 @@ function create(dom){
 		logo.setAttribute('src', 'media/logo3.png');
 		logo.setAttribute('alt', '#');
 		logo.setAttribute('id', 'logo');
+		logo.setAttribute('onmouseover', 'moveIt(this)');
 		
 	
 		document.getElementsByTagName('body')[0].appendChild(logo);
@@ -120,6 +241,17 @@ function create(dom){
 		if(dom.value === 'east'){
 			eastBool = true;
 
+
+		}
+
+		if(dom.value === 'eastRookie' || dom.value === 'westRookie'){
+			result += "Level: Rookie";
+		}
+		if(dom.value === 'eastVeteran' || dom.value === 'westVeteran'){
+			result += "Level: Veteran";
+		}
+		if(dom.value === 'eastAllStar' || dom.value === 'westAllStar') {
+			result +="Level: Allstar";
 		}
 
 		
@@ -161,6 +293,15 @@ function create(dom){
 		
 	}
 	else {
+		if(dom.value === 'wrTurbo' || dom.value === 'wvTurbo' || dom.value === 'waTurbo' || dom.value === 'erTurbo' || dom.value === 'evTurbo' || dom.value === 'eaTurbo'){
+			result += "Feature: Unlimmited Turbo";
+		}
+		if(dom.value === 'erBigHead' || dom.value === 'evBigHead' || dom.value === 'eaBigHead' || dom.value === 'wrBigHead' || dom.value === 'wvBigHead' || dom.value === 'waBigHead'){
+			result += "Feature: Big-Head Mode";
+		}
+		if(dom.value === 'erFire' || dom.value === 'evFire' || dom.value === 'eaFire' || dom.value === 'wrFire' || dom.value === 'wvFire' || dom.value === 'waFire'){
+			result += "Feature: 1 Shot Fire";
+		}
 		console.log("done!");
 		document.getElementsByTagName('body')[0].removeChild(document.getElementById('logo'));
 		document.getElementById('container').removeChild(document.getElementsByTagName('select')[0]);
@@ -171,6 +312,13 @@ function create(dom){
 		choose.setAttribute('id', 'choose');
 
 		document.getElementById('container').appendChild(choose);
+
+		var playButton = document.createElement('button');
+		playButton.setAttribute('type', 'button');
+		playButton.setAttribute('id', 'playButton');
+		playButton.appendChild(document.createTextNode("Let's Play!"));
+		playButton.setAttribute('onclick', 'goForm();')
+		document.getElementsByTagName('body')[0].appendChild(playButton);
 
 		var divW = document.createElement('div');
 		divW.setAttribute('id', 'west');
@@ -187,36 +335,36 @@ function create(dom){
 
 	if(eastBool){
 		var stockImg = document.createElement('img');
-		var random =  12 + Math.floor((Math.random() * 13) + 1);
+		var random =  11 + Math.floor((Math.random() * 13) + 1);
 		stockImg.setAttribute('src', 'media/' +teamArr[random] +'.jpg');
 		stockImg.setAttribute('id', 'stockPic');
 		document.getElementById('container').appendChild(stockImg);
 
-		for(var i=0; i< 26; i++){
+		for(var i=0; i< 24; i++){
 			var team = document.createElement('p');
 			var teamID = teamArr[i];
 			team.setAttribute('id', teamArr[i]);
 			team.appendChild(document.createTextNode(teamArr[i]));
 			
-				if(i < 6){
+				if(i <= 6){
 					team.setAttribute('onclick', 'pick(this);');
 					team.setAttribute('onmouseover', 'change(this)');
 					team.setAttribute('onmouseout', 'changeBack(this)');
 					divE.appendChild(team);
 	
 				}
-				if(i >6 && i <= 13){
+				if(i >6 && i < 13){
 					team.setAttribute('onclick', 'pick(this);');
 					team.setAttribute('onmouseover', 'change(this)');
 					team.setAttribute('onmouseout', 'changeBack(this)');
 					divE2.appendChild(team);
 	
 				}
-				if(i > 13 && i <= 19){
+				if(i >= 13 && i < 19){
 					divW.appendChild(team);
 	
 				}
-				 if (i > 19){
+				 if (i >= 19){
 					divW2.appendChild(team);
 	
 				}
@@ -225,21 +373,27 @@ function create(dom){
 		}
 		else {
 
-			for(var i=0; i< 26; i++){
+			var stockImg2 = document.createElement('img');
+			var random2 =  Math.floor((Math.random() * 12) + 1);
+			stockImg2.setAttribute('src', 'media/' +teamArr[random2] +'.jpg');
+			stockImg2.setAttribute('id', 'stockPic2');
+			document.getElementById('container').appendChild(stockImg2);
+
+			for(var i=0; i< 24; i++){
 			var team = document.createElement('p');
 			var teamID = teamArr[i];
 			team.setAttribute('id', teamArr[i]);
 			team.appendChild(document.createTextNode(teamArr[i]));
 			
-				if(i < 7){
+				if(i <= 6){
 					divE.appendChild(team);
 	
 				}
-				if(i >7 && i <= 13){
+				if(i >6 && i <13){
 					divE2.appendChild(team);
 	
 				}
-				if(i > 13 && i <= 19){
+				if(i >= 13 && i < 19){
 					divW.appendChild(team);
 					team.setAttribute('onclick', 'pick(this);');
 					team.setAttribute('onmouseover', 'change(this)');

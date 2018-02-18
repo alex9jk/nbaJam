@@ -6,7 +6,7 @@
 			width: 360px;
 			height: 329px;
 			position: relative;
-			left: 200;
+			left: 30px;
 			
 		}
 		
@@ -35,19 +35,67 @@
 			
 			
 		}
+		#playButton{
+			position: relative;
+			left: 85%;
+			top: 80%;
+			padding: 5px;
+			font-size: 24px;
+			font-family: 'VT323', monospace;
+			color: Gold;
+			background-color: DeepSkyBlue;
+
+		}
+
+		#formDiv{
+			width: 25%;
+			height: 85%;
+			z-index: 1;
+			background-color: white;
+			position: absolute;
+			top: 20%;
+			left: 95%;
+			border-width: 8px;
+			border-color: DeepSkyBlue;
+			border-style: solid;
+			background-color: black;
+			color: Gold;
+			padding: 10px;
+			
+		}
+		#formDiv p {
+			margin-bottom: 10px;
+		}
+
+		#formDiv input{
+			margin-bottom: 10px;
+		}
+		#feedBack{
+			background-color: white;
+			border-style: solid;
+			border-width: 4px;
+			border-color: red;
+			color: red;
+		}
+		h1{
+			color: Gold;
+		}
+		h2{
+			color: Gold;
+		}
 
 		#east{
 			position: absolute;
 			left: 74%;
 			width: 5%;
 			top: 28%;
-			color: yellow;
+			color: Gold;
 
 		}
 
 		#west{
 			position: absolute;
-			color: yellow;
+			color: Gold;
 			width: 5%;
 			left: 25%;
 			top: 28%;
@@ -57,6 +105,11 @@
 			position: absolute;
 			left: 17%;
 			top:56%;
+		}
+		#stockPick2 {
+			position: absolute;
+			top: 50%;
+			
 		}
 
 		#team{
@@ -73,7 +126,7 @@
 
 		#east2{
 			position: absolute;
-			color: yellow;
+			color: Gold;
 			left: 64%;
 			top:28%;
 			width: 10%;
@@ -81,7 +134,7 @@
 
 		#west2{
 			position: absolute;
-			color: yellow;
+			color: Gold;
 			left:38%;
 			top: 28%;
 			width: 10%;
@@ -98,6 +151,6 @@
 
 	
 		#choose {
-			margin-left: 15%;
+			margin-left: 10%;
 			margin-top: 10%;
 		}
