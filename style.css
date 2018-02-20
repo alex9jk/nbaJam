@@ -5,23 +5,25 @@
 		#logo{
 			width: 360px;
 			height: 329px;
-			position: relative;
-			left: 30px;
+			position: absolute;
+			left: 30%;
+			top: 20%;
 			
 		}
 		
 
 		.selStyle{
 			
-			font-size: 24px;
+			font-size: 28px;
 			font-family: 'VT323', monospace;
 			border-color: DeepSkyBlue;
 			border-style: solid;
-			border-width: 3px;
+			border-width: 6px;
 			color: Gold;
 			background-color:  DimGray;
 			position: relative;
-			
+			top: 50%;
+
 
 
 		}
@@ -98,7 +100,7 @@
 			color: Gold;
 			width: 5%;
 			left: 25%;
-			top: 28%;
+			top: 27%;
 
 		}
 		#stockPic{
@@ -108,7 +110,8 @@
 		}
 		#stockPick2 {
 			position: absolute;
-			top: 50%;
+			top: 56%;
+			right: 12.5%;
 			
 		}
 
@@ -120,7 +123,7 @@
 
 		#team2{
 			position:absolute;
-			left:17%;
+			left: 13.5%;
 			top: 56%;
 		}
 
@@ -136,7 +139,7 @@
 			position: absolute;
 			color: Gold;
 			left:38%;
-			top: 28%;
+			top: 27%;
 			width: 10%;
 		}
 		p{

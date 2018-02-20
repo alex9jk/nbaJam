@@ -1,16 +1,8 @@
 if(!document.getElementById){
 		window.location = 'https://www.mozilla.org/en-US/';
 	}
-
-
+//ie, reset, removeno
 var data = new Object();
-// data['init'] = ['none','Choose a GamePlay!', 'head', 'Head to Head', 'team', 'Team Play'];
-// data['head'] = ['none','Choose a difficulty!', 'headDiff', 'difficult', 'headEasy', 'Easy'];
-// data['headDiff'] = ['none','East or West?', 'headDiffEast', 'East', 'headDiffWest', 'West'];
-// data['headEasy'] = ['none','East or West?', 'headEasyEast', 'East', 'headEasyWest', 'West' ];
-// data['team'] = ['none','Choose a difficulty!', 'teamDiff', 'Difficult', 'teamEasy', 'Easy'];
-// data['teamDiff'] = ['none','East or West?', 'teamDiffEast', 'East', 'teamDiffWest', 'West'];
-// data['teamEasy'] = ['none','East or West?', 'teamEasyEast', 'East', 'teamEasyWest', 'West'];
 
 data['init'] = ['none','East or West?', 'east', 'East', 'west','West'];
 data['east'] = ['none', 'Choose a difficulty!','eastRookie', 'rookie', 'eastVeteran', 'veteran', 'eastAllStar', 'Allstar'];
@@ -24,46 +16,52 @@ data['westVeteran'] =['none', 'Choose a game feature!', 'wvTurbo','Unlimmited tu
 data['westAllStar'] =['none', 'Choose a game feature!', 'waTurbo','Unlimmited turbo', 'waBigHead', 'Big-Head Mode', 'waFire', '1 Shot Fire' ];
 
 										
-
-
-
-
-
 var imgID;
 var result = "";
 var pick = '';
 var eastBool = false;
 
-
+/*
+*Constructor function
+*select element for argument
+**/
 function create(dom){
 	var teamArr = new Array('Atlanta','Charlotte','Chicago','Cleveland','Detroit','Indiana','Boston','Miami','New Jersey','New York','Orlando','Philadelphia','Washington','L.A Clippers','L.A Lakers','Phoenix','Portland','Golden State','Seattle','Sacramento','Dallas','Denver','Houston','Minnesota');
 
-	
-		moveIt = function moveIt(dom){
-				console.log(parseInt(dom.style.left));
-				
-				if(parseInt(dom.style.left) < 600){
-					//my pos = my old pos + x
-
-					dom.style.left = parseInt(dom.style.left) + 20 + 'px';
-					
-					//wraper function when you have arguments
-					setTimeout(function(){moveIt(dom);}, 5);
-				
+	/*
+	*function that animates select options
+	*/
+		moveIt = function moveIt(){
+				//var log = document.getElementById('logo');
+				var sel = document.getElementsByTagName('select')[0];
+			if(document.getElementsByTagName('select').length > 0){
+				if(isNaN(parseInt(sel.style.left))){
+					sel.style.left = "5px";
 				}
-				
-			
-			
+				if(isNaN(parseInt(sel.style.top))){
+					sel.style.top = "5px";
+				}
+				if(parseInt(sel.style.left) < 800 && parseInt(sel.style.top) < 300){
+					sel.style.left = parseInt(sel.style.left) + 5 + 'px';
+					sel.style.top = parseInt(sel.style.top) + 1 + 'px';
+					
+					setTimeout(moveIt, 5);
+				}
+				}		
 			}
+
+	/*
+	*Function that validates form
+	*/
 	validate = function validate(){
 		var valBool = false;
 		var errorMsg = "Please complete the following fields: ";
 		var re = /\S+@\S+\.\S+/;
-			if(!document.getElementsByName('first-name').value){
+			if(!document.getElementsByName('first-name')[0].value){
 				errorMsg+= "First Name, ";
 				valBool = true;
 			}
-			if(!document.getElementsByName('last-name').value){
+			if(!document.getElementsByName('last-name')[0].value){
 				errorMsg+= "Last Name, ";
 				valBool = true;
 			}
@@ -82,11 +80,11 @@ function create(dom){
 			}
 
 			return true;
-
-
-
 	}
 	
+	/*
+	*Function that displays image of team selected.
+	*/
 	pick = function pick(p) {
 		if(document.getElementById('team')){
 			document.getElementById('container').removeChild(document.getElementById('team'));
@@ -112,14 +110,15 @@ function create(dom){
 		}
 		document.getElementById('container').appendChild(img);
 
-
-
 	}
 
+
+/*
+*Function that creates the form element
+*/
 	goForm = function goForm(){
 		var len = document.getElementById('west').getElementsByTagName('p').length;
 		for(var i= 0; i <len;i++){
-			console.log('hey');
 			document.getElementById('west').getElementsByTagName('p')[i].onclick = "";
 			document.getElementById('east2').getElementsByTagName('p')[i].onclick = "";
 		}
@@ -127,7 +126,6 @@ function create(dom){
 		var lenE = document.getElementById('east').getElementsByTagName('p').length;
 		console.log(lenE);
 		for(var i=0; i< lenE; i++){
-			
 			document.getElementById('east').getElementsByTagName('p')[i].onclick = "";
 		}
 
@@ -156,8 +154,6 @@ function create(dom){
 		resultDiv.appendChild(orderP);
 		divForm.appendChild(resultDiv);
 
-		
-		
 		var p = document.createElement('p');
 		p.appendChild(document.createTextNode('First Name:'));
 		var input = document.createElement('input');
@@ -167,12 +163,11 @@ function create(dom){
 		form.appendChild(p);
 		form.appendChild(input);
 		
-
 		var textLast = document.createElement('p');
 		textLast.appendChild(document.createTextNode('Last Name:'));
 		var inputLast = document.createElement('input');
 		inputLast.setAttribute('type', 'text');
-		inputLast.setAttribute('name', 'first-name');
+		inputLast.setAttribute('name', 'last-name');
 		inputLast.setAttribute('maxlength', 10);
 		form.appendChild(textLast);
 		form.appendChild(inputLast);
@@ -197,82 +192,92 @@ function create(dom){
 		submit.setAttribute('type', 'submit');
 		form.appendChild(submit);
 
-
 		divForm.appendChild(form);
 		
-
 		document.getElementById('container').appendChild(divForm);
 
 	}
 
+	/*
+	*Function that changes the background color of the team names
+	*/
 	change = function change(dom){
 		dom.style.backgroundColor = "DeepSkyBlue";
 
 	}
 
+	/*
+	*Function that changes back the background color of the team names
+	*/
 	changeBack = function changeBack(dom){
 		dom.style.backgroundColor ="";
 
 	}
 
+	var bod = document.getElementsByTagName('body')[0];
+	bod.addEventListener('load',  moveIt, true);
+
+	/*
+	*Creating container div and logo image element
+	*/
 	if(typeof dom === 'string'){
 		hold = data[dom];
 		var init = document.createElement('div');
 		init.setAttribute('id', 'container');
+		//init.setAttribute('onload', 'moveIt()');
 		document.getElementsByTagName('body')[0].appendChild(init);
 
 		var logo = document.createElement('img');
 		logo.setAttribute('src', 'media/logo3.png');
 		logo.setAttribute('alt', '#');
 		logo.setAttribute('id', 'logo');
-		logo.setAttribute('onmouseover', 'moveIt(this)');
+		//logo.setAttribute('onload', 'moveIt();');
 		
-	
 		document.getElementsByTagName('body')[0].appendChild(logo);
-
-
-		
-			
-
 
 	}
 	else{
 		hold = data[dom.value];
+
+		document.getElementById('container').appendChild(select);
+		// while(dom !== dom.parentNode.lastChild){
+		//  	dom.parentNode.removeChild(dom.parentNode.lastChild);
+		//  	console.log("elladsfo");
+		// }
+
+
+		
+
 		if(dom.value === 'east'){
 			eastBool = true;
-
 
 		}
 
 		if(dom.value === 'eastRookie' || dom.value === 'westRookie'){
-			result += "Level: Rookie";
+			result += "Level: Rookie ";
 		}
 		if(dom.value === 'eastVeteran' || dom.value === 'westVeteran'){
-			result += "Level: Veteran";
+			result += "Level: Veteran ";
 		}
 		if(dom.value === 'eastAllStar' || dom.value === 'westAllStar') {
-			result +="Level: Allstar";
-		}
-
+			result +="Level: Allstar ";
+		}	
 		
 
 	}
 
 	if(hold){
 		
-		
-		console.log("elladsfo");
 		var select = document.createElement('select');
-		select.setAttribute('onchange', 'create(this);');
+		select.setAttribute('onchange', 'create(this)');
+		//select.setAttribute('onchange', function(){create(this);});
 		select.setAttribute('class', 'selStyle');
-		select.setAttribute('onmouseover', 'moveIt(this)');
+			
+		//select.addEventListener('change',  moveIt, true);
 		
-
-
 		var len = hold.length;
 		
 		for(var i=0; i < len; i+=2){
-			console.log('h');
 			var option = document.createElement('option');
 			option.setAttribute('value', hold[i]);
 			option.appendChild(document.createTextNode(hold[i+1]));
@@ -280,29 +285,22 @@ function create(dom){
 
 		}
 
-		document.getElementById('container').appendChild(select);
+		
 
-
-
-
-		while(dom !== document.getElementById('container').lastChild){
-		 	document.getElementById('container').removeChild(dom);
-		 	console.log("elladsfo");
-		}
-
+		
 		
 	}
 	else {
 		if(dom.value === 'wrTurbo' || dom.value === 'wvTurbo' || dom.value === 'waTurbo' || dom.value === 'erTurbo' || dom.value === 'evTurbo' || dom.value === 'eaTurbo'){
-			result += "Feature: Unlimmited Turbo";
+			result += "Feature: Unlimmited Turbo ";
 		}
 		if(dom.value === 'erBigHead' || dom.value === 'evBigHead' || dom.value === 'eaBigHead' || dom.value === 'wrBigHead' || dom.value === 'wvBigHead' || dom.value === 'waBigHead'){
-			result += "Feature: Big-Head Mode";
+			result += "Feature: Big-Head Mode ";
 		}
 		if(dom.value === 'erFire' || dom.value === 'evFire' || dom.value === 'eaFire' || dom.value === 'wrFire' || dom.value === 'wvFire' || dom.value === 'waFire'){
-			result += "Feature: 1 Shot Fire";
+			result += "Feature: 1 Shot Fire ";
 		}
-		console.log("done!");
+		
 		document.getElementsByTagName('body')[0].removeChild(document.getElementById('logo'));
 		document.getElementById('container').removeChild(document.getElementsByTagName('select')[0]);
 
@@ -332,19 +330,25 @@ function create(dom){
 		var divE2 = document.createElement('div');
 		divE2.setAttribute('id', 'east2');
 
-
+	var stockImg = document.createElement('img');
 	if(eastBool){
-		var stockImg = document.createElement('img');
+		
 		var random =  11 + Math.floor((Math.random() * 13) + 1);
-		stockImg.setAttribute('src', 'media/' +teamArr[random] +'.jpg');
 		stockImg.setAttribute('id', 'stockPic');
-		document.getElementById('container').appendChild(stockImg);
+	}
+	if(!eastBool){
+		random = Math.floor((Math.random() * 13) + 1);
+		stockImg.setAttribute('id', 'stockPick2');
 
-		for(var i=0; i< 24; i++){
+	}
+	stockImg.setAttribute('src', 'media/' +teamArr[random] +'.jpg');
+	document.getElementById('container').appendChild(stockImg);
+		for(var i=0, teamL = teamArr.length; i< teamL; i++){
 			var team = document.createElement('p');
 			var teamID = teamArr[i];
 			team.setAttribute('id', teamArr[i]);
 			team.appendChild(document.createTextNode(teamArr[i]));
+			if(eastBool){
 			
 				if(i <= 6){
 					team.setAttribute('onclick', 'pick(this);');
@@ -368,23 +372,8 @@ function create(dom){
 					divW2.appendChild(team);
 	
 				}
-			}					
-			
-		}
-		else {
-
-			var stockImg2 = document.createElement('img');
-			var random2 =  Math.floor((Math.random() * 12) + 1);
-			stockImg2.setAttribute('src', 'media/' +teamArr[random2] +'.jpg');
-			stockImg2.setAttribute('id', 'stockPic2');
-			document.getElementById('container').appendChild(stockImg2);
-
-			for(var i=0; i< 24; i++){
-			var team = document.createElement('p');
-			var teamID = teamArr[i];
-			team.setAttribute('id', teamArr[i]);
-			team.appendChild(document.createTextNode(teamArr[i]));
-			
+			}
+			if(!eastBool){
 				if(i <= 6){
 					divE.appendChild(team);
 	
@@ -393,42 +382,31 @@ function create(dom){
 					divE2.appendChild(team);
 	
 				}
-				if(i >= 13 && i < 19){
+				if(i >= 13 && i < 18){
 					divW.appendChild(team);
 					team.setAttribute('onclick', 'pick(this);');
 					team.setAttribute('onmouseover', 'change(this)');
 					team.setAttribute('onmouseout', 'changeBack(this)');
-	
 				}
-				 if (i > 19){
+				 if (i > 18){
 					divW2.appendChild(team);
 					team.setAttribute('onclick', 'pick(this);');
 					team.setAttribute('onmouseover', 'change(this)');
 					team.setAttribute('onmouseout', 'changeBack(this)');
-
-
 				}
+
 			}
 		}
-
 		document.getElementById('container').appendChild(divW);
 		document.getElementById('container').appendChild(divW2);
 		document.getElementById('container').appendChild(divE);
-		document.getElementById('container').appendChild(divE2);
-		
-			// if(eastBool){
-			// 	var ran = Math.floor((Math.random() * 15) + 1);
-			// 	var comp = document.createElement('img');
-			// 	comp.setAttribute('id', 'west');
-			// 	comp.setAttribute('src', team[16 +ran]);
-
-			// }
-		console.log("elladsfo");
-
-
+		document.getElementById('container').appendChild(divE2);					
+			
 	}
-
-console.log('shit');
+			
 }
+
+
+
 
 
