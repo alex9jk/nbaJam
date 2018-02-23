@@ -1,6 +1,4 @@
-if(!document.getElementById){
-		window.location = 'https://www.mozilla.org/en-US/';
-	}
+
 //ie, reset, removeno
 var data = new Object();
 
@@ -38,37 +36,28 @@ var eastBool = false;
 var hold;
 
 /*
-*Constructor function
-*select element for argument
-**/
-function create(dom){
-	
-	/*
 	*function that animates select options
 	*/
 		moveIt = function moveIt(){
-				//var log = document.getElementById('logo');
-				var sel = document.getElementsByTagName('select').length;
-				
+				var sel = document.getElementsByTagName('select').length;	
 			if(document.getElementsByTagName('select').length > 0){
 
 				for(var i =0; i < sel;i++){
 					var selT = document.getElementsByTagName('select')[i];
 
-
 				}
-				if(isNaN(parseInt(selT.style.left))){
-					selT.style.left = "5px";
-				}
-				if(isNaN(parseInt(selT.style.top))){
-					selT.style.top = "5px";
-				}
-				if(parseInt(selT.style.left) < 450 && parseInt(selT.style.top) < 400){
-					selT.style.left = parseInt(selT.style.left) + 5 + 'px';
-					selT.style.top = parseInt(selT.style.top) + 1 + 'px';
-					
-					setTimeout(moveIt, 5);
-				}
+					if(isNaN(parseInt(selT.style.left))){
+						selT.style.left = "5px";
+					}
+					if(isNaN(parseInt(selT.style.top))){
+						selT.style.top = "5px";
+					}
+					if(parseInt(selT.style.left) < 450 && parseInt(selT.style.top) < 400){
+						selT.style.left = parseInt(selT.style.left) + 5 + 'px';
+						selT.style.top = parseInt(selT.style.top) + 1 + 'px';
+						
+						setTimeout(moveIt, 5);
+					}
 				}		
 			}
 
@@ -105,41 +94,37 @@ function create(dom){
 				return false;
 			}
 
+			if(localStorage){
+				localStorage.setItem('first',firstName);
+				localStorage.setItem('last',lastName);
+				localStorage.setItem('email',emailLocal);
+			}
+			else{
+				document.cookie = "first=" +firstName;
+				document.cookie = "last=" + lastName;
+				document.cookie = "email=" + emailLocal;
+			}
+
 			return true;
 	}
-	
+
+	GetCookie = function GetCookie (name) {
+	var arg = name + "=";
+	var alen = arg.length;
+	var clen = document.cookie.length;
+	var i = 0;
+	while (i < clen) {
+		var j = i + alen;
+		if (document.cookie.substring(i, j) == arg) {
+			return getCookieVal (j);
+			}
+		i = document.cookie.indexOf(" ", i) + 1;
+		if (i == 0) break; 
+		}
+	return null;
+}
+
 	/*
-	*Function that displays image of team selected.
-	*/
-	pick = function pick(p) {
-		if(document.getElementById('team')){
-			document.getElementById('container').removeChild(document.getElementById('team'));
-		}
-		if(document.getElementById('team2')){
-			document.getElementById('container').removeChild(document.getElementById('team2'));
-
-		}
-		
-		 imgID = p.id;
-		console.log(p.id);
-		
-		var img = document.createElement('img');
-		img.setAttribute('alt', '#');
-		img.setAttribute('src',  'media/' + imgID +'.jpg');
-		
-		if(eastBool){
-			img.setAttribute('id', 'team');
-
-		}
-		else {
-			img.setAttribute('id', 'team2');
-		}
-		document.getElementById('container').appendChild(img);
-
-	}
-
-
-/*
 *Function that creates the form element
 */
 	goForm = function goForm(){
@@ -181,12 +166,24 @@ function create(dom){
 		resultDiv.appendChild(orderP);
 		divForm.appendChild(resultDiv);
 
+
+
 		var p = document.createElement('p');
 		p.appendChild(document.createTextNode('First Name:'));
 		var input = document.createElement('input');
 		input.setAttribute('type', 'text');
 		input.setAttribute('name', 'first-name');
 		input.setAttribute('maxlength', 10);
+
+
+		if(localStorage){
+			var fLocal = localStorage.getItem('first');
+			input.setAttribute('value', fLocal);
+		}
+		else {
+			var fCook = document.GetCookie('first');
+			input.setAttribute('value', fCook);
+		}
 		form.appendChild(p);
 		form.appendChild(input);
 		
@@ -196,6 +193,15 @@ function create(dom){
 		inputLast.setAttribute('type', 'text');
 		inputLast.setAttribute('name', 'last-name');
 		inputLast.setAttribute('maxlength', 10);
+
+		if(localStorage){
+			var lLocal = localStorage.getItem('last');
+			inputLast.setAttribute('value', lLocal);
+		}
+		else {
+			var lCook = document.GetCookie('last');
+			inputLast.setAttribute('value', lCook);
+		}
 		form.appendChild(textLast);
 		form.appendChild(inputLast);
 
@@ -204,6 +210,15 @@ function create(dom){
 		var email = document.createElement('input');
 		email.setAttribute('type', 'email');
 		email.setAttribute('name', 'email');
+
+		if(localStorage){
+			var eLocal = localStorage.getItem('email');
+			email.setAttribute('value', eLocal);
+		}
+		else {
+			var eCook = document.GetCookie('email');
+			input.setAttribute('value', eCook);
+		}
 		form.appendChild(textEmail);
 		form.appendChild(email);
 
@@ -226,6 +241,39 @@ function create(dom){
 	}
 
 	/*
+	*Function that displays image of team selected.
+	*/
+	pick = function pick(p) {
+		if(document.getElementById('team')){
+			document.getElementById('container').removeChild(document.getElementById('team'));
+		}
+		if(document.getElementById('team2')){
+			document.getElementById('container').removeChild(document.getElementById('team2'));
+
+		}
+		
+		 imgID = p.id;
+		console.log(p.id);
+		
+		var img = document.createElement('img');
+		img.setAttribute('alt', '#');
+		img.setAttribute('src',  'media/' + imgID +'.jpg');
+		
+		if(eastBool){
+			img.setAttribute('id', 'team');
+
+		}
+		else {
+			img.setAttribute('id', 'team2');
+		}
+		document.getElementById('container').appendChild(img);
+
+	}
+
+
+
+
+	/*
 	*Function that changes the background color of the team names
 	*/
 	change = function change(dom){
@@ -240,7 +288,12 @@ function create(dom){
 		dom.style.backgroundColor ="";
 
 	}
-
+/*
+*Constructor function
+*select element for argument
+**/
+function create(dom){
+	
 	var bod = document.getElementsByTagName('body')[0];
 	bod.addEventListener('load',  moveIt, true);
 
@@ -253,9 +306,9 @@ function create(dom){
 		hold = data[dom];
 		
 		var init = document.createElement('div');
-	init.setAttribute('id', 'container');
+		init.setAttribute('id', 'container');
 		//init.setAttribute('onload', 'moveIt()');
-	document.getElementsByTagName('body')[0].appendChild(init);
+		document.getElementsByTagName('body')[0].appendChild(init);
 
 		var logo = document.createElement('img');
 		logo.setAttribute('src', 'media/logo3.png');
@@ -286,7 +339,7 @@ function create(dom){
 	}
 	if(typeof dom !== 'string'){
 		hold = data[dom.value];
-				while(dom!== document.getElementById('container').lastChild){
+		while(dom!== document.getElementById('container').lastChild){
 			document.getElementById('container').removeChild(document.getElementById('container').lastChild);
 		}
 
@@ -314,14 +367,13 @@ function create(dom){
 
 	var teamL = teamObj.west.play.length;
 	for(var i = 0; i < teamL; i+=2){
-			var playD = dom.value;
-			if(teamObj.west.play[i] === playD){
-				result += teamObj.west.play[i+1];
-
-			}
-			if(teamObj.east.play[i] === playD){
-				result += teamObj.east.play[i+1];
-			}
+		var playD = dom.value;
+		if(teamObj.west.play[i] === playD){
+			result += teamObj.west.play[i+1];
+		}
+		if(teamObj.east.play[i] === playD){
+			result += teamObj.east.play[i+1];
+		}
 	}
 
 	var teamLevel = teamObj.west.levels.length;
@@ -329,11 +381,11 @@ function create(dom){
 		var teamVal = dom.value;
 		if(teamObj.east.levels[i] === teamVal){
 			result += teamObj.east.levels[i+1];
-			}
+		}
 		if(teamObj.west.levels[i] === teamVal){
 			result += teamObj.west.levels[i+1];
 				console.log('west')
-			}
+		}
 	}
 	var conf = dom.value;
 		if(conf ===data.init[2]){

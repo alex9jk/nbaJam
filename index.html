@@ -6,8 +6,12 @@
 		<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type ="text/css" href= "style.css">
-		<script src ="script2.js"></script>
-
+		<script>
+			if(!document.getElementById){
+				window.location = 'https://www.mozilla.org/en-US/';
+			}
+		</script>
+		<script src ="script.js"></script>
 
 	</head>
 	<body onload= "create('init');">
