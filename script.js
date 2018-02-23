@@ -7,43 +7,65 @@ var data = new Object();
 data['init'] = ['none','East or West?', 'east', 'East', 'west','West'];
 data['east'] = ['none', 'Choose a difficulty!','eastRookie', 'rookie', 'eastVeteran', 'veteran', 'eastAllStar', 'Allstar'];
 data['west'] = ['none', 'Choose a difficulty!','westRookie', 'rookie', 'westVeteran', 'veteran', 'westAllStar', 'Allstar'];
-data['eastRookie'] =['none', 'Choose a game feature!', 'erTurbo','Unlimmited turbo', 'erBigHead', 'Big-Head Mode', 'erFire', '1 Shot Fire' ];
-data['eastVeteran'] =['none', 'Choose a game feature!', 'evTurbo','Unlimmited turbo', 'evBigHead', 'Big-Head Mode', 'evFire', '1 Shot Fire' ];
-data['eastAllStar'] =['none', 'Choose a game feature!', 'eaTurbo','Unlimmited turbo', 'eaBigHead', 'Big-Head Mode', 'eaFire', '1 Shot Fire' ];
+data['eastRookie'] =['none', 'Choose a game feature!', 'eTurbo','Unlimmited turbo', 'eBigHead', 'Big-Head Mode', 'eFire', '1 Shot Fire' ];
+data['eastVeteran'] =['none', 'Choose a game feature!', 'eTurbo','Unlimmited turbo', 'eBigHead', 'Big-Head Mode', 'eFire', '1 Shot Fire' ];
+data['eastAllStar'] =['none', 'Choose a game feature!', 'eTurbo','Unlimmited turbo', 'eBigHead', 'Big-Head Mode', 'eFire', '1 Shot Fire' ];
 
-data['westRookie'] =['none', 'Choose a game feature!', 'wrTurbo','Unlimmited turbo', 'wrBigHead', 'Big-Head Mode',  'wrFire', '1 Shot Fire' ];
-data['westVeteran'] =['none', 'Choose a game feature!', 'wvTurbo','Unlimmited turbo', 'wvBigHead', 'Big-Head Mode', 'wvFire', '1 Shot Fire' ];
-data['westAllStar'] =['none', 'Choose a game feature!', 'waTurbo','Unlimmited turbo', 'waBigHead', 'Big-Head Mode', 'waFire', '1 Shot Fire' ];
+data['westRookie'] =['none', 'Choose a game feature!', 'wTurbo','Unlimmited turbo', 'wBigHead', 'Big-Head Mode',  'wFire', '1 Shot Fire' ];
+data['westVeteran'] =['none', 'Choose a game feature!', 'wTurbo','Unlimmited turbo', 'wBigHead', 'Big-Head Mode', 'wFire', '1 Shot Fire' ];
+data['westAllStar'] =['none', 'Choose a game feature!', 'wTurbo','Unlimmited turbo', 'wBigHead', 'Big-Head Mode', 'wFire', '1 Shot Fire' ];
 
+var teamArr = new Array('Atlanta','Charlotte','Chicago','Cleveland','Detroit','Indiana','Boston','Miami','New Jersey','New York','Orlando','Philadelphia','Washington','L.A Clippers','L.A Lakers','Phoenix','Portland','Golden State','Seattle','Sacramento','Dallas','Denver','Houston','Minnesota');
+
+	var teamObj = {
+		east: {
+			teams:['Atlanta','Charlotte','Chicago','Cleveland','Detroit','Indiana','Boston','Miami','New Jersey','New York','Orlando','Philadelphia','Washington'],
+			levels:['eastRookie','Rookie','eastVeteran','Veteran','eastAllStar','AllStar'],
+			play:['eTurbo','Unlimmited Turbo','eBigHead','Big-Head Mode', 'eFire','1 Shot Fire']
+
+		},
+		west: {
+			teams:['L.A Clippers','L.A Lakers','Phoenix','Portland','Golden State','Seattle','Sacramento','Dallas','Denver','Houston','Minnesota'],
+			levels:['westRookie','Rookie','westVeteran','Veteran','westAllStar','AllStar'],
+			play:['wTurbo','Unlimmited Turbo','wBigHead','Big-Head Mode','wFire', '1 Shot Fire']
+		}
+	};
 										
 var imgID;
 var result = "";
 var pick = '';
 var eastBool = false;
+var hold;
 
 /*
 *Constructor function
 *select element for argument
 **/
 function create(dom){
-	var teamArr = new Array('Atlanta','Charlotte','Chicago','Cleveland','Detroit','Indiana','Boston','Miami','New Jersey','New York','Orlando','Philadelphia','Washington','L.A Clippers','L.A Lakers','Phoenix','Portland','Golden State','Seattle','Sacramento','Dallas','Denver','Houston','Minnesota');
-
+	
 	/*
 	*function that animates select options
 	*/
 		moveIt = function moveIt(){
 				//var log = document.getElementById('logo');
-				var sel = document.getElementsByTagName('select')[0];
+				var sel = document.getElementsByTagName('select').length;
+				
 			if(document.getElementsByTagName('select').length > 0){
-				if(isNaN(parseInt(sel.style.left))){
-					sel.style.left = "5px";
+
+				for(var i =0; i < sel;i++){
+					var selT = document.getElementsByTagName('select')[i];
+
+
 				}
-				if(isNaN(parseInt(sel.style.top))){
-					sel.style.top = "5px";
+				if(isNaN(parseInt(selT.style.left))){
+					selT.style.left = "5px";
 				}
-				if(parseInt(sel.style.left) < 800 && parseInt(sel.style.top) < 300){
-					sel.style.left = parseInt(sel.style.left) + 5 + 'px';
-					sel.style.top = parseInt(sel.style.top) + 1 + 'px';
+				if(isNaN(parseInt(selT.style.top))){
+					selT.style.top = "5px";
+				}
+				if(parseInt(selT.style.left) < 450 && parseInt(selT.style.top) < 400){
+					selT.style.left = parseInt(selT.style.left) + 5 + 'px';
+					selT.style.top = parseInt(selT.style.top) + 1 + 'px';
 					
 					setTimeout(moveIt, 5);
 				}
@@ -57,6 +79,10 @@ function create(dom){
 		var valBool = false;
 		var errorMsg = "Please complete the following fields: ";
 		var re = /\S+@\S+\.\S+/;
+		var firstName = document.getElementsByName('first-name')[0].value
+		var lastName = document.getElementsByName('last-name')[0].value
+		var emailLocal = document.getElementsByName('email')[0].value
+
 			if(!document.getElementsByName('first-name')[0].value){
 				errorMsg+= "First Name, ";
 				valBool = true;
@@ -120,13 +146,14 @@ function create(dom){
 		var len = document.getElementById('west').getElementsByTagName('p').length;
 		for(var i= 0; i <len;i++){
 			document.getElementById('west').getElementsByTagName('p')[i].onclick = "";
-			document.getElementById('east2').getElementsByTagName('p')[i].onclick = "";
+			document.getElementById('east').getElementsByTagName('p')[i].onclick = "";
 		}
 
-		var lenE = document.getElementById('east').getElementsByTagName('p').length;
+		var lenE = document.getElementById('east2').getElementsByTagName('p').length;
 		console.log(lenE);
 		for(var i=0; i< lenE; i++){
-			document.getElementById('east').getElementsByTagName('p')[i].onclick = "";
+			document.getElementById('east2').getElementsByTagName('p')[i].onclick = "";
+			
 		}
 
 		var lenW = document.getElementById('west2').getElementsByTagName('p').length;
@@ -220,12 +247,15 @@ function create(dom){
 	/*
 	*Creating container div and logo image element
 	*/
+	
+
 	if(typeof dom === 'string'){
 		hold = data[dom];
+		
 		var init = document.createElement('div');
-		init.setAttribute('id', 'container');
+	init.setAttribute('id', 'container');
 		//init.setAttribute('onload', 'moveIt()');
-		document.getElementsByTagName('body')[0].appendChild(init);
+	document.getElementsByTagName('body')[0].appendChild(init);
 
 		var logo = document.createElement('img');
 		logo.setAttribute('src', 'media/logo3.png');
@@ -235,45 +265,12 @@ function create(dom){
 		
 		document.getElementsByTagName('body')[0].appendChild(logo);
 
-	}
-	else{
-		hold = data[dom.value];
-
-		document.getElementById('container').appendChild(select);
-		// while(dom !== dom.parentNode.lastChild){
-		//  	dom.parentNode.removeChild(dom.parentNode.lastChild);
-		//  	console.log("elladsfo");
-		// }
-
-
-		
-
-		if(dom.value === 'east'){
-			eastBool = true;
-
-		}
-
-		if(dom.value === 'eastRookie' || dom.value === 'westRookie'){
-			result += "Level: Rookie ";
-		}
-		if(dom.value === 'eastVeteran' || dom.value === 'westVeteran'){
-			result += "Level: Veteran ";
-		}
-		if(dom.value === 'eastAllStar' || dom.value === 'westAllStar') {
-			result +="Level: Allstar ";
-		}	
-		
-
-	}
-
-	if(hold){
-		
 		var select = document.createElement('select');
 		select.setAttribute('onchange', 'create(this)');
 		//select.setAttribute('onchange', function(){create(this);});
 		select.setAttribute('class', 'selStyle');
 			
-		//select.addEventListener('change',  moveIt, true);
+		select.addEventListener('change',  moveIt, true);
 		
 		var len = hold.length;
 		
@@ -284,25 +281,80 @@ function create(dom){
 			select.appendChild(option);	
 
 		}
+		document.getElementById('container').appendChild(select);
 
-		
-
-		
-		
 	}
-	else {
-		if(dom.value === 'wrTurbo' || dom.value === 'wvTurbo' || dom.value === 'waTurbo' || dom.value === 'erTurbo' || dom.value === 'evTurbo' || dom.value === 'eaTurbo'){
-			result += "Feature: Unlimmited Turbo ";
+	if(typeof dom !== 'string'){
+		hold = data[dom.value];
+				while(dom!== document.getElementById('container').lastChild){
+			document.getElementById('container').removeChild(document.getElementById('container').lastChild);
 		}
-		if(dom.value === 'erBigHead' || dom.value === 'evBigHead' || dom.value === 'eaBigHead' || dom.value === 'wrBigHead' || dom.value === 'wvBigHead' || dom.value === 'waBigHead'){
-			result += "Feature: Big-Head Mode ";
-		}
-		if(dom.value === 'erFire' || dom.value === 'evFire' || dom.value === 'eaFire' || dom.value === 'wrFire' || dom.value === 'wvFire' || dom.value === 'waFire'){
-			result += "Feature: 1 Shot Fire ";
-		}
+
+		if(hold){
 		
+			var select = document.createElement('select');
+			select.setAttribute('onchange', 'create(this)');
+			//select.setAttribute('onchange', function(){create(this);});
+			select.setAttribute('class', 'selStyle');
+				
+			select.addEventListener('change',  moveIt, true);
+			
+			var len = hold.length;
+			
+			for(var i=0; i < len; i+=2){
+				var option = document.createElement('option');
+				option.setAttribute('value', hold[i]);
+				option.appendChild(document.createTextNode(hold[i+1]));
+				select.appendChild(option);	
+	
+			}
+			document.getElementById('container').appendChild(select);	
+		}
+	}
+
+	var teamL = teamObj.west.play.length;
+	for(var i = 0; i < teamL; i+=2){
+			var playD = dom.value;
+			if(teamObj.west.play[i] === playD){
+				result += teamObj.west.play[i+1];
+
+			}
+			if(teamObj.east.play[i] === playD){
+				result += teamObj.east.play[i+1];
+			}
+	}
+
+	var teamLevel = teamObj.west.levels.length;
+	for(var i =0; i < teamLevel; i+=2){
+		var teamVal = dom.value;
+		if(teamObj.east.levels[i] === teamVal){
+			result += teamObj.east.levels[i+1];
+			}
+		if(teamObj.west.levels[i] === teamVal){
+			result += teamObj.west.levels[i+1];
+				console.log('west')
+			}
+	}
+	var conf = dom.value;
+		if(conf ===data.init[2]){
+			eastBool = true;
+		}
+
+	
+		
+
+	if(!hold) {
+		
+		
+		console.log('fas');
 		document.getElementsByTagName('body')[0].removeChild(document.getElementById('logo'));
-		document.getElementById('container').removeChild(document.getElementsByTagName('select')[0]);
+
+		// var selLeng = document.getElementsByTagName('select').length;
+		// for(var i=0; i< selLeng;i++){
+		// document.getElementById('container').removeChild(document.getElementsByTagName('select')[i])
+		
+		// 	console.log('working');
+		// }	
 
 		var choose = document.createElement('img');
 		choose.setAttribute('src','media/choose.png');
@@ -343,68 +395,87 @@ function create(dom){
 	}
 	stockImg.setAttribute('src', 'media/' +teamArr[random] +'.jpg');
 	document.getElementById('container').appendChild(stockImg);
-		for(var i=0, teamL = teamArr.length; i< teamL; i++){
+	console.log(teamObj.east.teams.length);
+		for(var i=0, teamL = teamObj.east.teams.length; i< teamL; i++){
 			var team = document.createElement('p');
-			var teamID = teamArr[i];
-			team.setAttribute('id', teamArr[i]);
-			team.appendChild(document.createTextNode(teamArr[i]));
-			if(eastBool){
-			
-				if(i <= 6){
+			var teamID = teamObj.east.teams[i];
+			team.setAttribute('id', teamObj.east.teams[i]);
+			console.log(teamObj.east.teams[i]);
+			team.appendChild(document.createTextNode(teamObj.east.teams[i]));
 					team.setAttribute('onclick', 'pick(this);');
-					team.setAttribute('onmouseover', 'change(this)');
-					team.setAttribute('onmouseout', 'changeBack(this)');
-					divE.appendChild(team);
-	
-				}
-				if(i >6 && i < 13){
-					team.setAttribute('onclick', 'pick(this);');
-					team.setAttribute('onmouseover', 'change(this)');
-					team.setAttribute('onmouseout', 'changeBack(this)');
+					team.setAttribute('onmouseover', 'change(this);');
+					team.setAttribute('onmouseout', 'changeBack(this);');
+				if(i > 6){
 					divE2.appendChild(team);
-	
 				}
-				if(i >= 13 && i < 19){
-					divW.appendChild(team);
-	
-				}
-				 if (i >= 19){
-					divW2.appendChild(team);
-	
-				}
-			}
-			if(!eastBool){
-				if(i <= 6){
+				else{
 					divE.appendChild(team);
-	
 				}
-				if(i >6 && i <13){
-					divE2.appendChild(team);
-	
-				}
-				if(i >= 13 && i < 18){
-					divW.appendChild(team);
-					team.setAttribute('onclick', 'pick(this);');
-					team.setAttribute('onmouseover', 'change(this)');
-					team.setAttribute('onmouseout', 'changeBack(this)');
-				}
-				 if (i > 18){
-					divW2.appendChild(team);
-					team.setAttribute('onclick', 'pick(this);');
-					team.setAttribute('onmouseover', 'change(this)');
-					team.setAttribute('onmouseout', 'changeBack(this)');
-				}
-
-			}
 		}
+		
+console.log(teamObj.west.teams.length);
+// var teamW =teamObj.west.teams.length;
+		for(var i=0; i< 11; i++){
+			var teamW = document.createElement('p');
+			//var teamIDW = teamObj.west.teams[i];
+			teamW.setAttribute('id', teamObj.west.teams[i]);
+			teamW.appendChild(document.createTextNode(teamObj.west.teams[i]));
+			console.log(teamObj.west.teams[i]);
+			
+					teamW.setAttribute('onclick', 'pick(this);');
+					teamW.setAttribute('onmouseover', 'change(this);');
+					teamW.setAttribute('onmouseout', 'changeBack(this);');
+				if(i > 5){
+					divW2.appendChild(teamW);
+				}
+				else{
+					divW.appendChild(teamW);
+				}
+		}
+		
 		document.getElementById('container').appendChild(divW);
 		document.getElementById('container').appendChild(divW2);
 		document.getElementById('container').appendChild(divE);
-		document.getElementById('container').appendChild(divE2);					
-			
+		document.getElementById('container').appendChild(divE2);
+		
+
+		if(eastBool){
+			var divE = document.getElementById('west').getElementsByTagName('p');
+			var divE2 = document.getElementById('west2').getElementsByTagName('p');
+			var divEL = divE.length;
+			var divEL2 = divE2.length
+
+			for(var i =0;i < divEL; i++){
+					divE[i].onclick = "";	
+			}
+			for(var i =0;i < divEL2; i++){
+					divE2[i].onclick = "";	
+			}
+
+		}
+		
+		else{
+			var divW = document.getElementById('east').getElementsByTagName('p');
+			var divW2 = document.getElementById('east2').getElementsByTagName('p');
+			var divWL = divW.length;
+			var divWL2 = divW2.length;
+			for(var i =0;i < divWL; i++){
+					divW[i].onclick = "";	
+					console.log('hello');
+			}
+			for(var i =0;i < divWL2; i++){
+					divW2[i].onclick = "";	
+					console.log('hello');
+			}
+
+		}
+		
 	}
+							
 			
 }
+			
+
 
 
 
