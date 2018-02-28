@@ -10,7 +10,14 @@
 			if(!document.getElementById){
 				window.location = 'https://www.mozilla.org/en-US/';
 			}
+			var ie7 = false;
 		</script>
+<!--[if lt IE 8]>
+<script>
+    var ie7 = true;
+</script>
+<![endif]-->
+		<script src= "data.js"></script>
 		<script src ="script.js"></script>
 
 	</head>
