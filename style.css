@@ -8,6 +8,7 @@
 			position: absolute;
 			left: 10%;
 			top: 20%;
+			z-index: -1;
 			
 		}
 		
@@ -24,8 +25,6 @@
 			position: relative;
 			top: 50%;
 
-
-
 		}
 		select{
 			position: relative;
@@ -39,10 +38,10 @@
 		}
 		#playButton{
 			position: relative;
-			left: 85%;
-			top: 80%;
+			
+			bottom: 350px;
 			padding: 5px;
-			font-size: 24px;
+			font-size: 14px;
 			font-family: 'VT323', monospace;
 			color: Gold;
 			background-color: DeepSkyBlue;
@@ -72,12 +71,13 @@
 		#formDiv input{
 			margin-bottom: 10px;
 		}
-		#feedBack{
+		#feed-BackDiv{
 			background-color: white;
 			border-style: solid;
 			border-width: 4px;
 			border-color: red;
 			color: red;
+			display: none;
 		}
 		h1{
 			color: Gold;
@@ -88,37 +88,57 @@
 
 		#east{
 			position: absolute;
-			left: 74%;
+			left: 70%;
 			width: 5%;
-			top: 28%;
+			top: 30%;
 			color: Gold;
 
 		}
+
+		#east2{
+			position: absolute;
+			color: Gold;
+			left: 57%;
+			top:30%;
+			width: 10%;
+		}
+	
 
 		#west{
 			position: absolute;
 			color: Gold;
 			width: 5%;
-			left: 25%;
-			top: 27%;
+			left: 22.5%;
+			top: 30%;
 
 		}
+
+
+		#west2{
+			position: absolute;
+			color: Gold;
+			left:33%;
+			top: 30%;
+			width: 10%;
+		}
+
+	
 		#stockPic{
 			position: absolute;
-			left: 17%;
-			top:56%;
+			left: 12.5%;
+			top:57%;
 		}
 		#stockPick2 {
 			position: absolute;
-			top: 56%;
-			right: 12.5%;
+			top: 57%;
+			left: 52%;
 			
 		}
 
 		#team{
 			position: absolute;
-			left: 56%;
-			top: 56%;
+			left: 52%;
+			top: 57%;
 		}
 
 		#team2{
@@ -127,32 +147,15 @@
 			top: 56%;
 		}
 
-		#east2{
-			position: absolute;
-			color: Gold;
-			left: 64%;
-			top:28%;
-			width: 10%;
-		}
 
-		#west2{
-			position: absolute;
-			color: Gold;
-			left:38%;
-			top: 27%;
-			width: 10%;
-		}
 		p{
 			margin: 0;
 			padding: 0;
 			font-family: 'VT323', monospace;
 			font-size: 20px;
 		}
-		#opt{
-			background-color: green;
-		}
 
-	
+
 		#choose {
 			margin-left: 10%;
 			margin-top: 10%;
